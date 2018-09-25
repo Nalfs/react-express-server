@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import './../styles.css';
 import Home from './Home';
 import List from './List';
+import Post from './Post';
 
 class App extends Component {
 
@@ -40,11 +41,14 @@ class App extends Component {
 
         const App = () => (
             <div>
+            <div>
+                {test}
+                <Post />
+            </div>
               <Switch>
                 <Route exact path='/' component={Home}/>
                 <Route path='/list' component={List}/>
               </Switch>
-              <div>{test}</div>
             </div>
           )
 
