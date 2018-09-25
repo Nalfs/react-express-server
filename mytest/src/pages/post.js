@@ -15,6 +15,7 @@ class Post extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
+        this.postOrder();
         this.setState({makePost: {
             Name: '',
             Text: ''
@@ -27,10 +28,41 @@ class Post extends Component {
     handleOnchange(key, e){
         const val = e.target.value;
          let makePost = this.state.makePost;
-        makeReview[key] = val;
+         makePost[key] = val;
         this.setState({makePost})
         e.preventDefault();
     }
+
+    postOrder() {
+        const myHeader = {
+          headers: new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          }),
+          body: JSON.stringify(this.state.makePost),
+          method: 'POST'
+        };
+          console.log(this.state.makePost)
+         return fetch('http://localhost:5000/api/processData', myHeader)
+          .then(res => res.json())
+          .then(this.checkStatus)
+          .then(() => {
+            console.log('POST sent');
+          })
+          .catch((error) => {
+            console.log(error)
+          });
+        };
+
+        checkStatus(response) {
+            if (response.status >= 200 && response.status < 300) {
+                return response
+              } else {
+                var error = new Error(response.statusText)
+                error.response = response
+                throw error
+              }
+        }
 
 
     render() {

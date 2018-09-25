@@ -24,6 +24,13 @@ app.get('/api/getList', (req,res) => {
   console.log('Sent list of items');
 });
 
+app.post('/api/processData', (req,res) => {
+  console.log(req.body)
+  console.log('lalalala')
+  res.json(req.body);
+
+});
+
 // Handles any requests that don't match the ones above
 app.get('*', (req,res) =>{
   res.sendFile(path.join(__dirname+'/mytest/src/index.html'));
